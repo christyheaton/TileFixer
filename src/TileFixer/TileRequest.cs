@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SGSI.Spectrum
+namespace TileFixer.Spectrum
 {
   /// <summary>
   /// Converted code from a javascript library someone had posted

@@ -5,16 +5,18 @@ using System.Net;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 
-namespace SGSI.Spectrum
+namespace TileFixer.Spectrum
 {
   public class TileLayer : Service
   {
-    private const string ParamUrl = @"http://192.168.3.200:8080/rest/Spatial/MapTilingService/NamedTiles/{0}/{1}/{2}:{3}/{4}";
+    private const string BaseUrl = @"http://192.168.3.200:8080/rest/Spatial/MapTilingService/NamedTiles";
+    private const string ParamUrl = @"{0}/{1}/{2}/{3}:{4}/{5}";
     private const string CacheKeyFormat = @"{0}-{1}-{2}-{3}-{4}";
 
     private string RequestUrl(GetTile request)
     {
       return String.Format(ParamUrl,
+        BaseUrl,
         request.LayerName,
         request.zIndex + 1,
         request.xIndex + 1,

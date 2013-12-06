@@ -1,6 +1,6 @@
 ﻿using ServiceStack.Text;
 
-namespace SGSI.Spectrum
+namespace TileFixer.Spectrum
 {
   public class GeoPoint
   {

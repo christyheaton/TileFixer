@@ -3,7 +3,7 @@ using ServiceStack.Logging;
 using ServiceStack.Logging.NLogger;
 using ServiceStack.Text;
 
-namespace SGSI.Spectrum
+namespace TileFixer.Spectrum
 {
   public class Global : System.Web.HttpApplication
   {

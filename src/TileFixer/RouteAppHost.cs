@@ -4,10 +4,12 @@ using ServiceStack.Logging;
 using ServiceStack.Redis;
 using ServiceStack.WebHost.Endpoints;
 
-namespace SGSI.Spectrum
+namespace TileFixer.Spectrum
 {
   public class RouteAppHost : AppHostBase
   {
+    private const string RedisServerUrl = @"192.168.3.210:6379";
+
     //Tell Service Stack the name of your application and where to find your web services
     // if this is not the current assembly the routes will not appear properly.
     public RouteAppHost()
@@ -17,7 +19,7 @@ namespace SGSI.Spectrum
 
     public override void Configure(Funq.Container container)
     {
-      container.Register<IRedisClientsManager>(c => new PooledRedisClientManager("192.168.3.210:6379"));
+      container.Register<IRedisClientsManager>(c => new PooledRedisClientManager(RedisServerUrl));
       container.Register(c => c.Resolve<IRedisClientsManager>().GetCacheClient()).ReusedWithin(Funq.ReuseScope.None);
     }
   }

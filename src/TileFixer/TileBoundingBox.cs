@@ -1,7 +1,7 @@
 ﻿using System;
 using ServiceStack.Text;
 
-namespace SGSI.Spectrum
+namespace TileFixer.Spectrum
 {
   public class TileBoundingBox
   {

@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="SGSI.Spectrum.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="TileFixer.Spectrum.Global" Language="C#" %>
