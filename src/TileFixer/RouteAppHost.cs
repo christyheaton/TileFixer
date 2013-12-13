@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using ServiceStack.CacheAccess;
+using ServiceStack.Configuration;
 using ServiceStack.Logging;
 using ServiceStack.Redis;
+using ServiceStack.ServiceInterface;
+using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
 
 namespace TileFixer.Spectrum
 {
   public class RouteAppHost : AppHostBase
   {
-    private const string RedisServerUrl = @"192.168.3.210:6379";
-
     //Tell Service Stack the name of your application and where to find your web services
     // if this is not the current assembly the routes will not appear properly.
     public RouteAppHost()
@@ -17,11 +20,22 @@ namespace TileFixer.Spectrum
     {
     }
 
+    public const string RedisHost = @"RedisServer";
+
     public override void Configure(Funq.Container container)
     {
+      var RedisServerUrl = (new AppSettings()).Get(RedisHost, "localhost:6379");
       container.Register<IRedisClientsManager>(c => new PooledRedisClientManager(RedisServerUrl));
       container.Register(c => c.Resolve<IRedisClientsManager>().GetCacheClient()).ReusedWithin(Funq.ReuseScope.None);
     }
+  }
+
+  public class RedisConfig : Config
+  {
+    public string Host { get; set; }
+    public int Port { get; set; }
+    public int Database { get; set; }
+    public int Timeout { get; set; }
   }
 
   public static class ICacheClientExtensions
