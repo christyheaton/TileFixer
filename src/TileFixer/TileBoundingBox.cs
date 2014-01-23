@@ -29,7 +29,7 @@ namespace TileFixer.Spectrum
     /// <param name="y"></param>
     /// <param name="z"></param>
     /// <returns></returns>
-    public static GeoPoint TileToLatLong(double x, double y, double z)
+    private static GeoPoint TileToLatLong(double x, double y, double z)
     {
       var newPoint = new GeoPoint();
       double n = Math.PI - ((2.0 * Math.PI * y) / Math.Pow(2.0, z));

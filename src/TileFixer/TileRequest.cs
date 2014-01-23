@@ -49,6 +49,7 @@ namespace TileFixer.Spectrum
 }
 
 
+#pragma warning disable 1587
 ///**
 // * @name QT.js
 // * @author Esa
@@ -295,6 +296,7 @@ namespace TileFixer.Spectrum
 
 
 ///**
+#pragma warning restore 1587
 // *  the storage of points and functions to make collision tests
 // *  this is the main ToDo part
 // */

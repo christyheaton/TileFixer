@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using ServiceStack.CacheAccess;
 using ServiceStack.Configuration;
 using ServiceStack.Logging;
 using ServiceStack.Redis;
 using ServiceStack.ServiceInterface;
-using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
 
 namespace TileFixer.Spectrum
@@ -20,7 +17,7 @@ namespace TileFixer.Spectrum
     {
     }
 
-    public const string RedisHost = @"RedisServer";
+    private const string RedisHost = @"RedisServer";
 
     public override void Configure(Funq.Container container)
     {

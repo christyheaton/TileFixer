@@ -691,6 +691,12 @@
             Collection of files to be sent with request
             </summary>
         </member>
+        <member name="P:RestSharp.Http.UseDefaultCredentials">
+            <summary>
+            Determine whether or not the "default credentials" (e.g. the user account under which the current process is running)
+            will be sent along to the server.
+            </summary>
+        </member>
         <member name="P:RestSharp.Http.Headers">
             <summary>
             HTTP headers to be sent with request
@@ -1284,6 +1290,12 @@
             Useful when using Asynchronous Execution with Callbacks
             </remarks>
         </member>
+        <member name="P:RestSharp.IRestRequest.UseDefaultCredentials">
+            <summary>
+            Determine whether or not the "default credentials" (e.g. the user account under which the current process is running)
+            will be sent along to the server. The default is false.
+            </summary>
+        </member>
         <member name="T:RestSharp.IRestResponse">
             <summary>
             Container for data sent back from API
@@ -1365,8 +1377,9 @@
         </member>
         <member name="P:RestSharp.IRestResponse.ErrorException">
             <summary>
-            The exception thrown during the request, if any
+            Exceptions thrown during the request, if any.  
             </summary>
+            <remarks>Will contain only network transport or framework exceptions thrown during the request.  HTTP protocol errors are handled by RestSharp and will not appear here.</remarks>
         </member>
         <member name="T:RestSharp.IRestResponse`1">
             <summary>
@@ -1827,6 +1840,12 @@
         <member name="P:RestSharp.RestRequest.ResponseWriter">
             <summary>
             Set this to write response to Stream rather than reading into memory.
+            </summary>
+        </member>
+        <member name="P:RestSharp.RestRequest.UseDefaultCredentials">
+            <summary>
+            Determine whether or not the "default credentials" (e.g. the user account under which the current process is running)
+            will be sent along to the server. The default is false.
             </summary>
         </member>
         <member name="P:RestSharp.RestRequest.Parameters">
