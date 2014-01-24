@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
+using RestSharp;
 using ServiceStack;
+using ServiceStack.Configuration;
 
 namespace TileFixer.Spectrum
 {
   public class TileLayer : Service
   {
-    private const string BaseUrl = @"http://192.168.3.200:8080/rest/Spatial/MapTilingService/NamedTiles";
-    private const string ParamUrl = @"{0}/{1}/{2}/{3}:{4}/{5}";
+    private const string BaseUrl = @"TileServer";
+    private const string ParamUrl = @"rest/Spatial/MapTilingService/NamedTiles/{0}/{1}/{2}:{3}/{4}";
     private const string CacheKeyFormat = @"{0}-{1}-{2}-{3}-{4}";
 
-    private string RequestUrl(GetTile request)
+    private string RestParams(GetTile request)
     {
       return String.Format(ParamUrl,
-        BaseUrl,
         request.LayerName,
         request.zIndex + 1,
         request.xIndex + 1,
@@ -39,30 +39,26 @@ namespace TileFixer.Spectrum
       var log = this.Log();
       var cacheKey = CacheKey(request);
       log.DebugFormat("Cache Id: {0}", cacheKey);
+      var result = Cache.ToResultUsingCache(cacheKey, TileSearch(request));
+      return result.Image;
+    }
 
-      Func<CachedTile> fn = () =>
+    private Func<CachedTile> TileSearch(GetTile request)
+    {
+      return () =>
       {
-        var tileRequest = (HttpWebRequest)WebRequest.Create(RequestUrl(request));
-        log.DebugFormat("Tile request: {0}", tileRequest.Address.AbsoluteUri);
-        var tileResponse = tileRequest.GetResponse();
+        var client = new RestClient(new AppSettings().Get(BaseUrl, "http://localhost:8080"));
+        var tileRequest = new RestRequest(RestParams(request));
+        var log = this.Log();
+        log.DebugFormat("Tile request: {0}", client.BuildUri(tileRequest));
+        var tileResponse = client.ExecuteAsGet(tileRequest, HttpMethods.Get);
 
         var bounds = TileBoundingBox.GetTileBounds(request.xIndex, request.yIndex, request.zIndex);
         log.DebugFormat("Tile bounds: {0}", bounds);
+        log.DebugFormat("Content Type: {0}, size in bytes {1}", tileResponse.ContentType, tileResponse.RawBytes.LongLength);
 
-        var imageStream = tileResponse.GetResponseStream();
-        byte[] bytes;
-        using (var memoryStream = new MemoryStream())
-        {
-          if (imageStream != null)
-          {
-            imageStream.CopyTo(memoryStream);
-          }
-          bytes = memoryStream.ToArray();
-        }
-        return new CachedTile { Image = bytes, Bounds = bounds };
+        return new CachedTile { Image = tileResponse.RawBytes, Bounds = bounds };
       };
-      var result = Cache.ToResultUsingCache(cacheKey, fn);
-      return result.Image;
     }
 
     public object Get(GetTileBounds request)
@@ -79,7 +75,6 @@ namespace TileFixer.Spectrum
       };
       return TileRequest.LatLongToTiles(point);
     }
-
   }
 
   public class CachedTile
