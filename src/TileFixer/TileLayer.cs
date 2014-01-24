@@ -13,7 +13,7 @@ namespace TileFixer.Spectrum
     private const string ParamUrl = @"rest/Spatial/MapTilingService/NamedTiles/{0}/{1}/{2}:{3}/{4}";
     private const string CacheKeyFormat = @"{0}-{1}-{2}-{3}-{4}";
 
-    private string RestParams(GetTile request)
+    private static string RestParams(GetTile request)
     {
       return String.Format(ParamUrl,
         request.LayerName,
@@ -23,7 +23,7 @@ namespace TileFixer.Spectrum
         request.StaticResource);
     }
 
-    private string CacheKey(GetTile request)
+    private static string CacheKey(GetTile request)
     {
       return String.Format(CacheKeyFormat,
         request.LayerName,
@@ -39,11 +39,11 @@ namespace TileFixer.Spectrum
       var log = this.Log();
       var cacheKey = CacheKey(request);
       log.DebugFormat("Cache Id: {0}", cacheKey);
-      var result = Cache.ToResultUsingCache(cacheKey, TileSearch(request));
+      var result = Cache.ToResultUsingCache(cacheKey, RawTile(request));
       return result.Image;
     }
 
-    private Func<CachedTile> TileSearch(GetTile request)
+    private Func<CachedTile> RawTile(GetTile request)
     {
       return () =>
       {
