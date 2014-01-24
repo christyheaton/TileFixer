@@ -1,10 +1,9 @@
 ﻿using System;
-using ServiceStack.CacheAccess;
+using ServiceStack;
+using ServiceStack.Caching;
 using ServiceStack.Configuration;
 using ServiceStack.Logging;
 using ServiceStack.Redis;
-using ServiceStack.ServiceInterface;
-using ServiceStack.WebHost.Endpoints;
 
 namespace TileFixer.Spectrum
 {

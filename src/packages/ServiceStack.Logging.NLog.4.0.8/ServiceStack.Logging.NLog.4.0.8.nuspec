@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>ServiceStack.Logging.NLog</id>
+    <version>4.0.8</version>
+    <title>ServiceStack.Logging.NLog</title>
+    <authors>Service Stack</authors>
+    <owners>Service Stack</owners>
+    <licenseUrl>https://servicestack.net/terms</licenseUrl>
+    <projectUrl>https://github.com/ServiceStack/ServiceStack</projectUrl>
+    <iconUrl>https://servicestack.net/img/logo-32.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Provides NLog logging integration for other ServiceStack projects</description>
+    <summary>NLog logging integration for ServiceStack, the Opensource .NET and Mono REST Web Services Framework</summary>
+    <releaseNotes />
+    <copyright>Copyright 2013 Service Stack</copyright>
+    <language>en-US</language>
+    <tags>servicestack log logging nlog</tags>
+    <dependencies>
+      <dependency id="NLog" version="2.0.0.2000" />
+      <dependency id="ServiceStack.Common" version="4.0" />
+    </dependencies>
+  </metadata>
+</package>

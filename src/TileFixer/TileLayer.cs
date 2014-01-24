@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
+using ServiceStack;
 
 namespace TileFixer.Spectrum
 {
