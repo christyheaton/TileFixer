@@ -66,11 +66,7 @@ namespace TileFixer.Spectrum
       {
         LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
       }
-      if (current != null)
-      {
-        return LogManager.GetLogger(current.GetType());
-      }
-      return null;
+      return (current != null) ? LogManager.GetLogger(current.GetType()) : null;
     }
   }
 }

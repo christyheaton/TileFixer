@@ -23,7 +23,7 @@ namespace TileFixer.Spectrum
     }
 
     /// <summary>
-    /// This is the NorthWest Corner of th tile
+    /// This is the NorthWest Corner of the tile
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
@@ -32,7 +32,7 @@ namespace TileFixer.Spectrum
     private static GeoPoint TileToLatLong(double x, double y, double z)
     {
       var newPoint = new GeoPoint();
-      double n = Math.PI - ((2.0 * Math.PI * y) / Math.Pow(2.0, z));
+      var n = Math.PI - ((2.0 * Math.PI * y) / Math.Pow(2.0, z));
 
       newPoint.Longitude = (float)((x / Math.Pow(2.0, z) * 360.0) - 180.0);
       newPoint.Latitude = (float)(180.0 / Math.PI * Math.Atan(Math.Sinh(n)));

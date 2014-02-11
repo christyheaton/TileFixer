@@ -43,18 +43,34 @@ namespace TileFixer.Spectrum
       return result.Image;
     }
 
+    private IRestResponse GetTile(GetTile request)
+    {
+      var client = new RestClient(new AppSettings().Get(BaseUrl, "http://localhost:8080"));
+      var tileRequest = new RestRequest(RestParams(request));
+      var log = this.Log();
+      log.DebugFormat("Tile request: {0}", client.BuildUri(tileRequest));
+      IRestResponse tileResponse;
+      try
+      {
+        tileResponse = client.ExecuteAsGet(tileRequest, HttpMethods.Get);
+      }
+      catch (Exception exc)
+      {
+        log.ErrorFormat("Issue: {0} at {1}", exc.Message, exc.StackTrace);
+        throw;
+      }
+      return tileResponse;
+    }
+
     private Func<CachedTile> RawTile(GetTile request)
     {
       return () =>
       {
-        var client = new RestClient(new AppSettings().Get(BaseUrl, "http://localhost:8080"));
-        var tileRequest = new RestRequest(RestParams(request));
         var log = this.Log();
-        log.DebugFormat("Tile request: {0}", client.BuildUri(tileRequest));
-        var tileResponse = client.ExecuteAsGet(tileRequest, HttpMethods.Get);
-
         var bounds = TileBoundingBox.GetTileBounds(request.xIndex, request.yIndex, request.zIndex);
         log.DebugFormat("Tile bounds: {0}", bounds);
+
+        var tileResponse = GetTile(request);
         log.DebugFormat("Content Type: {0}, size in bytes {1}", tileResponse.ContentType, tileResponse.RawBytes.LongLength);
 
         return new CachedTile { Image = tileResponse.RawBytes, Bounds = bounds };
