@@ -21,8 +21,11 @@ namespace TileFixer.Spectrum
     public override void Configure(Funq.Container container)
     {
       var RedisServerUrl = (new AppSettings()).Get(RedisHost, "localhost:6379");
-      container.Register<IRedisClientsManager>(c => new PooledRedisClientManager(RedisServerUrl));
+      container.Register<IRedisClientsManager>(c => new RedisManagerPool(RedisServerUrl));
       container.Register(c => c.Resolve<IRedisClientsManager>().GetCacheClient()).ReusedWithin(Funq.ReuseScope.None);
+			Plugins.Add(new ServerEventsFeature());
+			// This enables cross-domain calls from Javascript client.
+			Plugins.Add(new CorsFeature());
     }
   }
 
@@ -53,7 +56,8 @@ namespace TileFixer.Spectrum
       {
         return null;        
       }
-      cache.Set(cacheKey, result, TimeSpan.FromDays(hours));
+
+			cache.Set(cacheKey, result, TimeSpan.FromDays(hours));
       return result;
     }
   }
