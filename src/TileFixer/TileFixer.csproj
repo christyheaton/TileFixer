@@ -11,7 +11,7 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TileFixer.Spectrum</RootNamespace>
+    <RootNamespace>TileFixer</RootNamespace>
     <AssemblyName>TileFixer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
@@ -96,20 +96,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="index.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TileLayer.cs" />
-    <Compile Include="GeoPoint.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RedisConfig.cs" />
     <Compile Include="RouteAppHost.cs" />
-    <Compile Include="TileBoundingBox.cs" />
-    <Compile Include="TileRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -126,6 +124,16 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TileFixer.ServiceInterface\TileFixer.ServiceInterface.csproj">
+      <Project>{d735d9c6-bd58-4a93-bea4-30afcd3faccb}</Project>
+      <Name>TileFixer.ServiceInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TileFixer.ServiceModel\TileFixer.ServiceModel.csproj">
+      <Project>{F14D37F6-D69F-4D2A-A075-3BCD137B1517}</Project>
+      <Name>TileFixer.ServiceModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

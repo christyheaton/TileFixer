@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TileFixer.Spectrum
+namespace TileFixer.ServiceModel
 {
   /// <summary>
   /// Converted code from a javascript library someone had posted
@@ -17,7 +17,7 @@ namespace TileFixer.Spectrum
     public int Z { get; set; }
 
     private const int LowestLevel = 19;
-    private const int TileSize = 256;
+    public const int TileSize = 256;
 
     public static List<TileRequest> LatLongToTiles(GeoPoint point)
     {

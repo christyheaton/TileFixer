@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 using RestSharp;
 using ServiceStack;
 using ServiceStack.Configuration;
+using TileFixer.ServiceModel;
 
-namespace TileFixer.Spectrum
+namespace TileFixer.ServiceInterface
 {
   public class TileLayer : Service
   {
@@ -31,6 +32,27 @@ namespace TileFixer.Spectrum
         request.xIndex,
         request.yIndex,
         request.StaticResource);
+    }
+
+    [AddHeader(ContentType = "image/png")]
+    public object Get(GetMetaTile request)
+    {
+      using (var image = new Bitmap(TileRequest.TileSize, TileRequest.TileSize, PixelFormat.Format32bppArgb))
+      {
+        var g = Graphics.FromImage(image);
+        g.FillRectangle(Brushes.White, 0f, 0f, image.Width, image.Height);
+        g.DrawRectangle(new Pen(Color.Blue), 0f, 0f, image.Width, image.Height);
+        var text = String.Format("Z: {1}{0}X: {2}{0}Y: {3}{0}",
+          Environment.NewLine,
+          request.zIndex,
+          request.xIndex,
+          request.yIndex);
+        g.DrawString(text, new Font("Consolas", 14), Brushes.Blue, 0f, 0f);
+        image.MakeTransparent(Color.White);
+        var converter = new ImageConverter();
+        var data = (byte[])converter.ConvertTo(image, typeof(byte[]));
+        return data;
+      }
     }
 
     [AddHeader(ContentType = "image/png")]
@@ -91,36 +113,5 @@ namespace TileFixer.Spectrum
       };
       return TileRequest.LatLongToTiles(point);
     }
-  }
-
-  public class CachedTile
-  {
-    public byte[] Image { get; set; }
-    public TileBoundingBox Bounds { get; set; }
-  }
-
-  [Route("/getTileRequests/{Latitude}/{Longitude}", "GET")]
-  public class GetTileRequests : IReturn<List<GetTileBounds>>
-  {
-    public double Latitude { get; set; }
-    public double Longitude { get; set; }
-  }
-
-  [Route("/getBounds/{zIndex}/{xIndex}/{yIndex}", "GET")]
-  public class GetTileBounds : IReturn<TileBoundingBox>
-  {
-    public int zIndex { get; set; }
-    public int xIndex { get; set; }
-    public int yIndex { get; set; }
-  }
-
-  [Route("/getTile/{LayerName}/{zIndex}/{xIndex}/{yIndex}/{StaticResource}", "GET")]
-  public class GetTile : IReturn<Stream>
-  {
-    public string LayerName { get; set; }
-    public string StaticResource { get; set; }
-    public int zIndex { get; set; }
-    public int xIndex { get; set; }
-    public int yIndex { get; set; }
   }
 }

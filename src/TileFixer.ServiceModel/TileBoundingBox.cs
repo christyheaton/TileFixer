@@ -1,7 +1,7 @@
 ﻿using System;
 using ServiceStack;
 
-namespace TileFixer.Spectrum
+namespace TileFixer.ServiceModel
 {
   public class TileBoundingBox
   {

@@ -2,8 +2,9 @@
 using ServiceStack.Logging;
 using ServiceStack.Logging.NLogger;
 using ServiceStack.Text;
+using TileFixer.ServiceModel;
 
-namespace TileFixer.Spectrum
+namespace TileFixer
 {
   public class Global : System.Web.HttpApplication
   {
