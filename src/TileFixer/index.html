@@ -11,135 +11,21 @@
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>  
 <script>
   var tilerId = 'openstreetmap.org';
-  function tileLoadMonitor(tEvent)
-  {
-    var reqUrl = tEvent.url;
-    var startPos = reqUrl.search(new RegExp(tilerId, "i"));
-    if (startPos > -1)
-    {
-      startPos = startPos + tilerId.length + 1;
-    }
-    var tileReq = reqUrl.slice(startPos).split("/");
-    var z = tileReq[0];
-    var x = tileReq[1];
-    var y = tileReq[2].split(".")[0];
-    var polyReq = z + "/" + x + "/" + y; 
-    jQuery.getJSON("getBounds/" + polyReq, function (bounds)
-    {
-      var points = new Array();
-      points.push(L.latLng(bounds.SouthWest.Latitude, bounds.SouthWest.Longitude));
-      points.push(L.latLng(bounds.SouthEast.Latitude, bounds.SouthEast.Longitude));
-      points.push(L.latLng(bounds.NorthEast.Latitude, bounds.NorthEast.Longitude));
-      points.push(L.latLng(bounds.NorthWest.Latitude, bounds.NorthWest.Longitude));
-      var popText = "OSM/Google/Bing<br/>Z Index: " + z + "<br/>" + "X Index: " + x + "<br/>" + "Y Index: " + y;
-      var newPoly = L.polygon(points).bindPopup(popText);
-      newPoly.customZ = z;
-      map.eachLayer(function(layer)
-      {
-        if ((layer.hasOwnProperty("customZ")) && layer.customZ !== z)
-        {
-          map.removeLayer(layer);
-        }
-      });
-      newPoly.options.id = polyReq;
-      var addItem = true;
-      map.eachLayer(function (layer)
-      {
-        if (layer.options.id === newPoly.options.id)
-        {
-          addItem = false;          
-        }
-      });
-      if (addItem)
-      {
-        newPoly.addTo(map);
-      }
-    });
-  }
-
   var tileUrl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
   var map = L.map('map').setView([32.755488, -97.330766], 13);
-
   var layer = L.tileLayer(tileUrl, {
     maxZoom: 18,
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
       '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ',
     id: tilerId
   });
-  //layer.on("tileloadstart", tileLoadMonitor);
   layer.addTo(map);
-
-  var tileUrl = "getMetaTile/{z}/{x}/{y}";
+  var tileUrl = "myMap/getMetaTile/{z}/{x}/{y}";
   var metaLayer = L.tileLayer(tileUrl, {
     maxZoom: 18,
-    attribution: '<a href="http://siliconheaven.net/">ME ME ME'
+    attribution: 'ME ME ME'
   });
-  //layer.on("tileloadstart", tileLoadMonitor);
   metaLayer.addTo(map);
-
-
-  function onEachFeature(feature, layer)
-  {
-    var popupContent = "<p>I started out as a GeoJSON " +
-      feature.geometry.type + ", but now I'm a Leaflet vector!</p>";
-    if (feature.properties && feature.properties.popupContent)
-    {
-      popupContent += feature.properties.popupContent;
-    }
-    layer.bindPopup(popupContent);
-  }
-
-
-
-
-  //tileloadstart
-
-  //L.geoJson([bicycleRental, campus], {
-
-  //  style: function (feature)
-  //  {
-  //    return feature.properties && feature.properties.style;
-  //  },
-
-  //  onEachFeature: onEachFeature,
-
-  //  pointToLayer: function (feature, latlng)
-  //  {
-  //    return L.circleMarker(latlng, {
-  //      radius: 8,
-  //      fillColor: "#ff7800",
-  //      color: "#000",
-  //      weight: 1,
-  //      opacity: 1,
-  //      fillOpacity: 0.8
-  //    });
-  //  }
-  //}).addTo(map);
-
-  //L.geoJson(freeBus, {
-
-  //  filter: function (feature, layer)
-  //  {
-  //    if (feature.properties)
-  //    {
-  //      // If the property "underConstruction" exists and is true, return false (don't render features under construction)
-  //      return feature.properties.underConstruction !== undefined ? !feature.properties.underConstruction : true;
-  //    }
-  //    return false;
-  //  },
-
-  //  onEachFeature: onEachFeature
-  //}).addTo(map);
-
-  //var coorsLayer = L.geoJson(coorsField, {
-
-  //  pointToLayer: function (feature, latlng)
-  //  {
-  //    return L.marker(latlng, { icon: baseballIcon });
-  //  },
-
-  //  onEachFeature: onEachFeature
-  //}).addTo(map);
 </script>
 </body>
 </html>
