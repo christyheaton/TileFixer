@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using ServiceStack.Logging;
 using ServiceStack.Logging.NLogger;
 using ServiceStack.Text;
@@ -6,7 +7,7 @@ using TileFixer.ServiceModel;
 
 namespace TileFixer
 {
-  public class Global : System.Web.HttpApplication
+  public class Global : HttpApplication
   {
     private RouteAppHost AppHost;
 
@@ -33,7 +34,7 @@ namespace TileFixer
     protected void Application_Error(object sender, EventArgs e)
     {
       // Code that runs when an unhandled error occurs
-      Exception ex = Server.GetLastError();
+      var ex = Server.GetLastError();
       if (ex != null && ex.Message.Length > 0)
       {
         this.Log().ErrorFormat("Message: {0}, Dump: {1}, StackTrace: {2}", ex.Message, ex.Dump(), ex.StackTrace);

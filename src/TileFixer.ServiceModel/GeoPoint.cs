@@ -4,14 +4,14 @@ namespace TileFixer.ServiceModel
 {
   public class GeoPoint
   {
-    public double Latitude { get; set; }
-    public double Longitude { get; set; }
-    public int Projection { get; set; }
-
     public GeoPoint()
     {
       Projection = 3857;
     }
+
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
+    public int Projection { get; set; }
 
     public override string ToString()
     {

@@ -21,7 +21,7 @@ namespace TileFixer.ServiceInterface
       var result = fn();
       if (result == null)
       {
-        return null;        
+        return null;
       }
 
       cache.Set(cacheKey, result, TimeSpan.FromDays(hours));

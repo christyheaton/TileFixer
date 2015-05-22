@@ -50,7 +50,7 @@ namespace TileFixer.ServiceInterface
         g.DrawString(text, new Font("Consolas", 14), Brushes.Blue, 0f, 0f);
         image.MakeTransparent(Color.White);
         var converter = new ImageConverter();
-        var data = (byte[])converter.ConvertTo(image, typeof(byte[]));
+        var data = (byte[]) converter.ConvertTo(image, typeof (byte[]));
         return data;
       }
     }
@@ -93,9 +93,10 @@ namespace TileFixer.ServiceInterface
         log.DebugFormat("Tile bounds: {0}", bounds);
 
         var tileResponse = GetTile(request);
-        log.DebugFormat("Content Type: {0}, size in bytes {1}", tileResponse.ContentType, tileResponse.RawBytes.LongLength);
+        log.DebugFormat("Content Type: {0}, size in bytes {1}", tileResponse.ContentType,
+          tileResponse.RawBytes.LongLength);
 
-        return new CachedTile { Image = tileResponse.RawBytes, Bounds = bounds };
+        return new CachedTile {Image = tileResponse.RawBytes, Bounds = bounds};
       };
     }
 

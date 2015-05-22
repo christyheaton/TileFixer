@@ -5,19 +5,17 @@ using System.Linq;
 namespace TileFixer.ServiceModel
 {
   /// <summary>
-  /// Converted code from a javascript library someone had posted
-  /// http://koti.mbnet.fi/ojalesa/quadtree/quadtree.js
-  /// 
-  /// Full source is listed below
+  ///   Converted code from a javascript library someone had posted
+  ///   http://koti.mbnet.fi/ojalesa/quadtree/quadtree.js
+  ///   Full source is listed below
   /// </summary>
   public class TileRequest
   {
+    private const int LowestLevel = 19;
+    public const int TileSize = 256;
     public int X { get; set; }
     public int Y { get; set; }
     public int Z { get; set; }
-
-    private const int LowestLevel = 19;
-    public const int TileSize = 256;
 
     public static List<TileRequest> LatLongToTiles(GeoPoint point)
     {
@@ -26,28 +24,26 @@ namespace TileFixer.ServiceModel
 
     private static double LatitudeToY(double latitude)
     {
-      var sinLat = Math.Sin(latitude * Math.PI / 180);
-      return ((0.5 - Math.Log((1 + sinLat) / (1 - sinLat)) / (4 * Math.PI)) * TileSize);
+      var sinLat = Math.Sin(latitude*Math.PI/180);
+      return ((0.5 - Math.Log((1 + sinLat)/(1 - sinLat))/(4*Math.PI))*TileSize);
     }
 
     private static double LongitudeToX(double longitude)
     {
-      return (((longitude + 180)/360) * TileSize);
+      return (((longitude + 180)/360)*TileSize);
     }
 
     public static TileRequest LatLongToTile(GeoPoint point, int zLevel)
     {
       return new TileRequest
       {
-        X = (int) Math.Floor(LongitudeToX(point.Longitude) * Math.Pow(2, zLevel) / TileSize),
-        Y = (int) Math.Floor(LatitudeToY(point.Latitude) * Math.Pow(2, zLevel) / TileSize),
+        X = (int) Math.Floor(LongitudeToX(point.Longitude)*Math.Pow(2, zLevel)/TileSize),
+        Y = (int) Math.Floor(LatitudeToY(point.Latitude)*Math.Pow(2, zLevel)/TileSize),
         Z = zLevel
       };
     }
   }
-
 }
-
 
 #pragma warning disable 1587
 ///**
@@ -81,7 +77,6 @@ namespace TileFixer.ServiceModel
 //|___|___|
 
 //*/
-
 
 
 ///**
@@ -121,7 +116,6 @@ namespace TileFixer.ServiceModel
 //  var lng = 360 * x;
 //  return new google.maps.LatLng(lat, lng);
 //}
-
 
 
 ///**
@@ -170,7 +164,6 @@ namespace TileFixer.ServiceModel
 //}
 
 
-
 ///**
 // *  decode a quadtree key string to x, y, z {}
 // *  @param quad {String}
@@ -193,7 +186,6 @@ namespace TileFixer.ServiceModel
 //}
 
 
-
 ///**
 // *  resolves quadtree key string to LatLng
 // *  @param quad {String}
@@ -207,7 +199,6 @@ namespace TileFixer.ServiceModel
 //  wP.y = QT.tileSize * tile.y / Math.pow(2, len);
 //  return QT.mercator.fromPointToLatLng(wP);
 //}
-
 
 
 ///**
@@ -292,7 +283,6 @@ namespace TileFixer.ServiceModel
 //  if (opt_prec) temp = temp.substring(0, +opt_prec);
 //  return parseInt(temp, 4).toString(36);
 //}
-
 
 
 ///**

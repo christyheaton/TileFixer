@@ -1,3 +1,4 @@
+using System.Reflection;
 using ServiceStack.Logging;
 
 namespace TileFixer.ServiceModel
@@ -8,7 +9,7 @@ namespace TileFixer.ServiceModel
     {
       if (current == null)
       {
-        LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
       }
       return (current != null) ? LogManager.GetLogger(current.GetType()) : null;
     }
