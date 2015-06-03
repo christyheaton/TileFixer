@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TileFixer.ServiceInterface"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TileFixer.Tests", "TileFixer.Tests\TileFixer.Tests.csproj", "{D9C23A50-89CB-4DD6-BA22-7881518933AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TileFixer.Caching", "TileFixer.Caching\TileFixer.Caching.csproj", "{5B889ECF-3D11-4B95-9F8B-92315F8C4FFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{D9C23A50-89CB-4DD6-BA22-7881518933AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9C23A50-89CB-4DD6-BA22-7881518933AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9C23A50-89CB-4DD6-BA22-7881518933AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B889ECF-3D11-4B95-9F8B-92315F8C4FFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B889ECF-3D11-4B95-9F8B-92315F8C4FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B889ECF-3D11-4B95-9F8B-92315F8C4FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B889ECF-3D11-4B95-9F8B-92315F8C4FFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

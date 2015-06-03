@@ -1,39 +1,14 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-using RestSharp;
 using ServiceStack;
-using ServiceStack.Configuration;
+using TileFixer.Caching;
 using TileFixer.ServiceModel;
 
 namespace TileFixer.ServiceInterface
 {
   public class TileLayer : Service
   {
-    private const string BaseUrl = @"TileServer";
-    private const string ParamUrl = @"rest/Spatial/MapTilingService/NamedTiles/{0}/{1}/{2}:{3}/{4}";
-    private const string CacheKeyFormat = @"{0}-{1}-{2}-{3}-{4}";
-
-    private static string RestParams(GetTile request)
-    {
-      return String.Format(ParamUrl,
-        request.LayerName,
-        request.zIndex + 1,
-        request.xIndex + 1,
-        request.yIndex + 1,
-        request.StaticResource);
-    }
-
-    private static string CacheKey(GetTile request)
-    {
-      return String.Format(CacheKeyFormat,
-        request.LayerName,
-        request.zIndex,
-        request.xIndex,
-        request.yIndex,
-        request.StaticResource);
-    }
-
     [AddHeader(ContentType = "image/png")]
     public object Get(GetMetaTile request)
     {
@@ -59,45 +34,10 @@ namespace TileFixer.ServiceInterface
     public object Get(GetTile request)
     {
       var log = this.Log();
-      var cacheKey = CacheKey(request);
+      var cacheKey = request.CacheKey();
       log.DebugFormat("Cache Id: {0}", cacheKey);
-      var result = Cache.ToResultUsingCache(cacheKey, RawTile(request));
+      var result = Cache.ToResultUsingCache(cacheKey, FixedTile.RawTile(request));
       return result.Image;
-    }
-
-    private IRestResponse GetTile(GetTile request)
-    {
-      var client = new RestClient(new AppSettings().Get(BaseUrl, "http://localhost:8080"));
-      var tileRequest = new RestRequest(RestParams(request));
-      var log = this.Log();
-      log.DebugFormat("Tile request: {0}", client.BuildUri(tileRequest));
-      IRestResponse tileResponse;
-      try
-      {
-        tileResponse = client.ExecuteAsGet(tileRequest, HttpMethods.Get);
-      }
-      catch (Exception exc)
-      {
-        log.ErrorFormat("Issue: {0} at {1}", exc.Message, exc.StackTrace);
-        throw;
-      }
-      return tileResponse;
-    }
-
-    private Func<CachedTile> RawTile(GetTile request)
-    {
-      return () =>
-      {
-        var log = this.Log();
-        var bounds = TileBoundingBox.GetTileBounds(request.xIndex, request.yIndex, request.zIndex);
-        log.DebugFormat("Tile bounds: {0}", bounds);
-
-        var tileResponse = GetTile(request);
-        log.DebugFormat("Content Type: {0}, size in bytes {1}", tileResponse.ContentType,
-          tileResponse.RawBytes.LongLength);
-
-        return new CachedTile {Image = tileResponse.RawBytes, Bounds = bounds};
-      };
     }
 
     public object Get(GetTileBounds request)

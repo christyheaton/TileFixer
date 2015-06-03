@@ -2,7 +2,7 @@ using System;
 using ServiceStack.Caching;
 using TileFixer.ServiceModel;
 
-namespace TileFixer.ServiceInterface
+namespace TileFixer.Caching
 {
   public static class ICacheClientExtensions
   {
