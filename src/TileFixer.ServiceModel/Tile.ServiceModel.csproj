@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoundingBoxExtensions.cs" />
+    <Compile Include="TileCompute.cs" />
     <Compile Include="CachedTile.cs" />
     <Compile Include="GeoPoint.cs" />
     <Compile Include="GetMetaTile.cs" />

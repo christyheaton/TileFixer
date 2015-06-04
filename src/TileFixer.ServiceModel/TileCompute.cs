@@ -4,6 +4,18 @@ namespace Tile.ServiceModel
 {
   public static class TileCompute
   {
+    public static BoundingBox MercatorEntireWorld()
+    {
+      const int projection = 3857;
+      return new BoundingBox
+      {
+        NorthEast = new GeoPoint { Longitude = 180, Latitude = 90, Projection = projection },
+        NorthWest = new GeoPoint { Longitude = -180, Latitude = 90, Projection = projection },
+        SouthEast = new GeoPoint { Longitude = 180, Latitude = -90, Projection = projection },
+        SouthWest = new GeoPoint { Longitude = -180, Latitude = 90, Projection = projection }
+      };
+    }
+
     public static BoundingBox GetBounds(double x, double y, double z)
     {
       var bounds = new BoundingBox
