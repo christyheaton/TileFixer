@@ -79,13 +79,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TileFixer.ServiceInterface\TileFixer.ServiceInterface.csproj">
+    <ProjectReference Include="..\TileFixer.ServiceInterface\Tile.ServiceInterface.csproj">
       <Project>{D735D9C6-BD58-4A93-BEA4-30AFCD3FACCB}</Project>
-      <Name>TileFixer.ServiceInterface</Name>
+      <Name>Tile.ServiceInterface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TileFixer.ServiceModel\TileFixer.ServiceModel.csproj">
+    <ProjectReference Include="..\TileFixer.ServiceModel\Tile.ServiceModel.csproj">
       <Project>{F14D37F6-D69F-4D2A-A075-3BCD137B1517}</Project>
-      <Name>TileFixer.ServiceModel</Name>
+      <Name>Tile.ServiceModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

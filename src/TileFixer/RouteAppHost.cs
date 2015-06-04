@@ -2,9 +2,9 @@
 using ServiceStack;
 using ServiceStack.Configuration;
 using ServiceStack.Redis;
-using TileFixer.ServiceInterface;
+using Tile.ServiceInterface;
 
-namespace TileFixer
+namespace Tile.Fixer
 {
   public class RouteAppHost : AppHostBase
   {
@@ -12,7 +12,7 @@ namespace TileFixer
     //Tell Service Stack the name of your application and where to find your web services
     // if this is not the current assembly the routes will not appear properly.
     public RouteAppHost()
-      : base("TileFixer", typeof (TileLayer).Assembly)
+      : base("Tile.Fixer", typeof (TileLayer).Assembly)
     {
     }
 

@@ -1,8 +1,8 @@
 using System;
 using ServiceStack.Caching;
-using TileFixer.ServiceModel;
+using Tile.ServiceModel;
 
-namespace TileFixer.Caching
+namespace Tile.Caching
 {
   public static class ICacheClientExtensions
   {

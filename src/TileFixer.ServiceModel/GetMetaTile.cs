@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using ServiceStack;
 
-namespace TileFixer.ServiceModel
+namespace Tile.ServiceModel
 {
   [Route("/getMetaTile/{zIndex}/{xIndex}/{yIndex}", "GET")]
   public class GetMetaTile : IReturn<Stream>

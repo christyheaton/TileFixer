@@ -1,7 +1,7 @@
 using System.Reflection;
 using ServiceStack.Logging;
 
-namespace TileFixer.ServiceModel
+namespace Tile.ServiceModel
 {
   public static class LogExtensions
   {

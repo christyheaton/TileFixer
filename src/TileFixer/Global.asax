@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="TileFixer.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Tile.Fixer.Global" Language="C#" %>

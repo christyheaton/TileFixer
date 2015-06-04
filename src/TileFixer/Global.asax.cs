@@ -3,9 +3,9 @@ using System.Web;
 using ServiceStack.Logging;
 using ServiceStack.Logging.NLogger;
 using ServiceStack.Text;
-using TileFixer.ServiceModel;
+using Tile.ServiceModel;
 
-namespace TileFixer
+namespace Tile.Fixer
 {
   public class Global : HttpApplication
   {

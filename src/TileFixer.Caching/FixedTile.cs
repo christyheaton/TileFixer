@@ -2,9 +2,9 @@
 using RestSharp;
 using ServiceStack;
 using ServiceStack.Configuration;
-using TileFixer.ServiceModel;
+using Tile.ServiceModel;
 
-namespace TileFixer.Caching
+namespace Tile.Caching
 {
   public static class FixedTile
   {
@@ -44,8 +44,10 @@ namespace TileFixer.Caching
     {
       return () =>
       {
+
         var log = typeof(FixedTile).Log();
-        var bounds = TileBoundingBox.GetTileBounds(request.xIndex, request.yIndex, request.zIndex);
+
+        var bounds = TileCompute.GetBounds(request.xIndex, request.yIndex, request.zIndex);
         log.DebugFormat("Tile bounds: {0}", bounds);
 
         var tileResponse = GetTile(request);

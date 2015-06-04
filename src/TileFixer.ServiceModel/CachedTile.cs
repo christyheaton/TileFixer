@@ -1,8 +1,8 @@
-﻿namespace TileFixer.ServiceModel
+﻿namespace Tile.ServiceModel
 {
   public class CachedTile
   {
     public byte[] Image { get; set; }
-    public TileBoundingBox Bounds { get; set; }
+    public BoundingBox Bounds { get; set; }
   }
 }

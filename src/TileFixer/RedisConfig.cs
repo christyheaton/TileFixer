@@ -1,6 +1,6 @@
 using ServiceStack.Configuration;
 
-namespace TileFixer
+namespace Tile.Fixer
 {
   public class RedisConfig : Config
   {

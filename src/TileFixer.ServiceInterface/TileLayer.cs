@@ -2,10 +2,10 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using ServiceStack;
-using TileFixer.Caching;
-using TileFixer.ServiceModel;
+using Tile.Caching;
+using Tile.ServiceModel;
 
-namespace TileFixer.ServiceInterface
+namespace Tile.ServiceInterface
 {
   public class TileLayer : Service
   {
@@ -42,7 +42,7 @@ namespace TileFixer.ServiceInterface
 
     public object Get(GetTileBounds request)
     {
-      return TileBoundingBox.GetTileBounds(request.xIndex, request.yIndex, request.zIndex);
+      return TileCompute.GetBounds(request.xIndex, request.yIndex, request.zIndex);
     }
 
     public object Get(GetTileRequests request)

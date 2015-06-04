@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using ServiceStack;
 
-namespace TileFixer.ServiceModel
+namespace Tile.ServiceModel
 {
   [Route("/getTile/{LayerName}/{zIndex}/{xIndex}/{yIndex}/{StaticResource}", "GET")]
   public class GetTile : IReturn<Stream>

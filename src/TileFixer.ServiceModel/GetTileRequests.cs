@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ServiceStack;
 
-namespace TileFixer.ServiceModel
+namespace Tile.ServiceModel
 {
   [Route("/getTileRequests/{Latitude}/{Longitude}", "GET")]
   public class GetTileRequests : IReturn<List<GetTileBounds>>

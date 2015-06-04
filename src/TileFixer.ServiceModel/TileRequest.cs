@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TileFixer.ServiceModel
+namespace Tile.ServiceModel
 {
   /// <summary>
   ///   Converted code from a javascript library someone had posted

@@ -1,9 +1,9 @@
 using ServiceStack;
 
-namespace TileFixer.ServiceModel
+namespace Tile.ServiceModel
 {
   [Route("/getBounds/{zIndex}/{xIndex}/{yIndex}", "GET")]
-  public class GetTileBounds : IReturn<TileBoundingBox>
+  public class GetTileBounds : IReturn<BoundingBox>
   {
     public int zIndex { get; set; }
     public int xIndex { get; set; }
