@@ -19,7 +19,7 @@ namespace Tile.ServiceModel
     private const string CacheKeyFormat = @"{0}-{1}-{2}-{3}-{4}";
     public static string CacheKey(this GetTile request)
     {
-      return String.Format(CacheKeyFormat,
+      return CacheKeyFormat.Fmt(
         request.LayerName,
         request.zIndex,
         request.xIndex,

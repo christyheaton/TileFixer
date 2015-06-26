@@ -17,7 +17,7 @@ namespace Tile.ServiceInterface
         var g = Graphics.FromImage(image);
         g.FillRectangle(Brushes.White, 0f, 0f, image.Width, image.Height);
         g.DrawRectangle(new Pen(Color.Blue), 0f, 0f, image.Width, image.Height);
-        var text = String.Format("Z: {1}{0}X: {2}{0}Y: {3}{0}",
+        var text = "Z: {1}{0}X: {2}{0}Y: {3}{0}".Fmt(
           Environment.NewLine,
           request.zIndex,
           request.xIndex,

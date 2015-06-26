@@ -13,7 +13,7 @@ namespace Tile.Caching
 
     private static string RestParams(GetTile request)
     {
-      return String.Format(ParamUrl,
+      return ParamUrl.Fmt(
         request.LayerName,
         request.zIndex + 1,
         request.xIndex + 1,
@@ -26,7 +26,7 @@ namespace Tile.Caching
       var client = new RestClient(new AppSettings().Get(BaseUrl, "http://localhost:8080"));
       var tileRequest = new RestRequest(RestParams(request));
       var log = typeof(FixedTile).Log();
-      log.DebugFormat("Tile request: {0}", client.BuildUri(tileRequest));
+      log.DebugFormat("Tile request original {0} converted {1}", request.ToGetUrl(), client.BuildUri(tileRequest));
       IRestResponse tileResponse;
       try
       {
@@ -44,9 +44,7 @@ namespace Tile.Caching
     {
       return () =>
       {
-
         var log = typeof(FixedTile).Log();
-
         var bounds = TileCompute.GetBounds(request.xIndex, request.yIndex, request.zIndex);
         log.DebugFormat("Tile bounds: {0}", bounds);
 
