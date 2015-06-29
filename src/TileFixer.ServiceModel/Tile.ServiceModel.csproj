@@ -48,10 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MetaTiles\SpectrumMetaTile.cs" />
     <Compile Include="TileCompute.cs" />
     <Compile Include="CachedTile.cs" />
     <Compile Include="GeoPoint.cs" />
-    <Compile Include="GetMetaTile.cs" />
+    <Compile Include="MetaTiles\MetaTile.cs" />
     <Compile Include="GetTile.cs" />
     <Compile Include="GetTileBounds.cs" />
     <Compile Include="GetTileRequests.cs" />

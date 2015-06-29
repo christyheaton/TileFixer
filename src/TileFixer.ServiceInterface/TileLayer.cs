@@ -10,24 +10,15 @@ namespace Tile.ServiceInterface
   public class TileLayer : Service
   {
     [AddHeader(ContentType = "image/png")]
-    public object Get(GetMetaTile request)
+    public object Get(MetaTile request)
     {
-      using (var image = new Bitmap(TileRequest.TileSize, TileRequest.TileSize, PixelFormat.Format32bppArgb))
-      {
-        var g = Graphics.FromImage(image);
-        g.FillRectangle(Brushes.White, 0f, 0f, image.Width, image.Height);
-        g.DrawRectangle(new Pen(Color.Blue), 0f, 0f, image.Width, image.Height);
-        var text = "Z: {1}{0}X: {2}{0}Y: {3}{0}".Fmt(
-          Environment.NewLine,
-          request.zIndex,
-          request.xIndex,
-          request.yIndex);
-        g.DrawString(text, new Font("Consolas", 14), Brushes.Blue, 0f, 0f);
-        image.MakeTransparent(Color.White);
-        var converter = new ImageConverter();
-        var data = (byte[]) converter.ConvertTo(image, typeof (byte[]));
-        return data;
-      }
+      return TileFactory.MetaTile(request);
+    }
+
+    [AddHeader(ContentType = "image/png")]
+    public object Get(SpectrumMetaTile request)
+    {
+      return TileFactory.SpectrumMetaTile(request);
     }
 
     [AddHeader(ContentType = "image/png")]
@@ -36,7 +27,7 @@ namespace Tile.ServiceInterface
       var log = this.Log();
       var cacheKey = request.CacheKey();
       log.DebugFormat("Cache Id: {0}", cacheKey);
-      var result = Cache.ToResultUsingCache(cacheKey, FixedTile.RawTile(request));
+      var result = Cache.ToResultUsingCache(cacheKey, TileFactory.RawTile(request));
       return result.Image;
     }
 

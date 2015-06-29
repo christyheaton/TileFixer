@@ -20,12 +20,20 @@
     id: tilerId
   });
   layer.addTo(map);
-  var tileUrl = "myMap/getMetaTile/{z}/{x}/{y}";
+  var tileUrl = "metaTile/{z}/{x}/{y}";
   var metaLayer = L.tileLayer(tileUrl, {
     maxZoom: 18,
     attribution: "ME ME ME"
   });
   metaLayer.addTo(map);
+
+  var spectrumMetaTileUrl = "spectrumMetaTile/{z}/{x}/{y}";
+  var spectrumMetaLayer = L.tileLayer(spectrumMetaTileUrl, {
+    maxZoom: 18,
+    attribution: "ME ME ME"
+  });
+  spectrumMetaLayer.addTo(map);
+
 </script>
 </body>
 </html>
