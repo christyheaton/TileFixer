@@ -26,7 +26,7 @@ namespace Tile.Caching
         request.StaticResource);
     }
 
-    public static byte[] RawImage(GetTile request)
+    public static byte[] Image(GetTile request)
     {
       return GetTile(request).RawBytes;
     }
